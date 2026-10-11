@@ -160,9 +160,7 @@ export class GpsMapStack extends Stack {
   {"items":[#foreach($item in $result.Items){"prefecture":$item.prefecture.N}#if($foreach.hasNext),#end#end],"splitRequired":false}
 #end` },
           },
-          { selectionPattern: '4\\d{2}', statusCode: '502', responseParameters: corsHeaders, responseTemplates: { 'application/json': `#set($errorMessage = $input.path('$.message'))
-#set($errorType = $input.path('$.__type'))
-{"message":"Database request failed","detail":$util.toJson($errorMessage),"type":$util.toJson($errorType)}` } },
+          { selectionPattern: '4\\d{2}', statusCode: '502', responseParameters: corsHeaders, responseTemplates: { 'application/json': `{"message":"Database request failed","integrationStatus":"$context.integration.status","integrationError":"$context.integration.error","raw":$util.toJson($input.body)}` } },
           { selectionPattern: '5\\d{2}', statusCode: '503', responseParameters: corsHeaders, responseTemplates: { 'application/json': '{"message":"Database temporarily unavailable"}' } },
         ],
       },
