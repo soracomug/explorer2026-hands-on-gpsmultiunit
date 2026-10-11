@@ -129,13 +129,9 @@ export class GpsMapStack extends Stack {
     scanRole.addToPolicy(new iam.PolicyStatement({ actions: ['dynamodb:Scan'], resources: [table.tableArn] }));
     const readResource = api.root.addResource('api').addResource('prefectures');
     const parameters = `#set($segmentText = $input.params().querystring.get('segment'))
-  #set($segmentsText = $input.params().querystring.get('segments'))
-#set($valid = false)
+#set($segmentsText = $input.params().querystring.get('segments'))
 #set($segment = $util.parseJson($segmentText))
-#set($segments = $util.parseJson($segmentsText))
-#if($segment >= 0 && $segments >= 1 && $segments <= 1048576 && $segment < $segments)
-  #set($valid = true)
-#end`;
+#set($segments = $util.parseJson($segmentsText))`;
     const corsHeaders = {
       'method.response.header.Access-Control-Allow-Origin': `'${siteOrigin}'`,
       'method.response.header.Cache-Control': "'no-store'",
@@ -150,7 +146,7 @@ export class GpsMapStack extends Stack {
         requestTemplates: {
           'application/json': `${parameters}
 {"TableName":"${table.tableName}","ProjectionExpression":"#p","ExpressionAttributeNames":{"#p":"prefecture"},"ConsistentRead":true,
-#if($valid)"Segment":$segment,"TotalSegments":$segments#else"Limit":1#end
+"Segment":$segment,"TotalSegments":$segments
 }`,
         },
         integrationResponses: [
@@ -158,10 +154,7 @@ export class GpsMapStack extends Stack {
             statusCode: '200', responseParameters: corsHeaders,
             responseTemplates: { 'application/json': `${parameters}
 #set($result = $input.path('$'))
-#if(!$valid)
-  #set($context.responseOverride.status = 400)
-  {"message":"Invalid scan segment: segment=$!segmentText, segments=$!segmentsText"}
-#elseif($result.LastEvaluatedKey && !$result.LastEvaluatedKey.isEmpty())
+#if($result.LastEvaluatedKey && !$result.LastEvaluatedKey.isEmpty())
   {"items":[],"splitRequired":true}
 #else
   {"items":[#foreach($item in $result.Items){"prefecture":$item.prefecture.N}#if($foreach.hasNext),#end#end],"splitRequired":false}
