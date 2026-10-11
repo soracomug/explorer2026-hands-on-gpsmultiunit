@@ -128,8 +128,8 @@ export class GpsMapStack extends Stack {
     const scanRole = new iam.Role(this, 'ApiScanRole', { assumedBy: new iam.ServicePrincipal('apigateway.amazonaws.com') });
     scanRole.addToPolicy(new iam.PolicyStatement({ actions: ['dynamodb:Scan'], resources: [table.tableArn] }));
     const readResource = api.root.addResource('api').addResource('prefectures');
-    const parameters = `#set($segmentText = $input.params('segment'))
-#set($segmentsText = $input.params('segments'))
+    const parameters = `#set($segmentText = $input.params().querystring.get('segment'))
+  #set($segmentsText = $input.params().querystring.get('segments'))
 #set($valid = false)
 #if($segmentText.matches('^(0|[1-9][0-9]{0,6})$') && $segmentsText.matches('^[1-9][0-9]{0,6}$'))
   #set($segment = $util.parseJson($segmentText))
@@ -162,7 +162,7 @@ export class GpsMapStack extends Stack {
 #set($result = $input.path('$'))
 #if(!$valid)
   #set($context.responseOverride.status = 400)
-  {"message":"Invalid scan segment"}
+  {"message":"Invalid scan segment: segment=$!segmentText, segments=$!segmentsText"}
 #elseif($result.LastEvaluatedKey && !$result.LastEvaluatedKey.isEmpty())
   {"items":[],"splitRequired":true}
 #else
