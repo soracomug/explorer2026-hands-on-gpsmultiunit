@@ -50,8 +50,7 @@ export async function readAllPrefectures({ fetchImpl = fetch, signal, endpoint =
           let detail = body;
           try {
             const error = JSON.parse(body);
-            const raw = error.raw && typeof error.raw === 'object' ? JSON.stringify(error.raw) : error.raw;
-            detail = [error.message, error.detail, error.type, error.integrationStatus, error.integrationError, raw].filter(Boolean).join(': ') || body;
+            detail = [error.message, error.detail, error.type, error.integrationStatus, error.integrationError, error.requestId].filter(Boolean).join(': ') || body;
           } catch {
             // Keep the raw response body when the API does not return JSON.
           }
