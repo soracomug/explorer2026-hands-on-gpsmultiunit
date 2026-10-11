@@ -57,6 +57,7 @@ test('restarts all segments after truncation and never double counts earlier rou
 test('returns an empty table and rejects failed, malformed, or oversized scans', async () => {
   assert.deepEqual(await readAllPrefectures({ fetchImpl: async () => response([]) }), []);
   await assert.rejects(readAllPrefectures({ fetchImpl: async () => ({ ok: false, status: 503, text: async () => '{"message":"Database temporarily unavailable"}' }) }), /503.*Database temporarily unavailable/);
+  await assert.rejects(readAllPrefectures({ fetchImpl: async () => ({ ok: false, status: 502, text: async () => '{"message":"Database request failed","raw":{"__type":"ValidationException","message":"Invalid Scan input"}}' }) }), /502.*ValidationException.*Invalid Scan input/);
   await assert.rejects(readAllPrefectures({ fetchImpl: async () => ({ ok: false, status: 400, text: async () => 'Missing required request parameters: segment, segments' }) }), /400.*Missing required request parameters/);
   await assert.rejects(readAllPrefectures({ fetchImpl: async () => ({ ok: true, json: async () => ({ items: {} }) }) }), /応答形式/);
   await assert.rejects(readAllPrefectures({ maxSegments: 2, fetchImpl: async () => response([], true) }), /大きすぎ/);
