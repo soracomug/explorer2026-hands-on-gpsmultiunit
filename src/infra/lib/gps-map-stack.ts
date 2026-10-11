@@ -131,12 +131,10 @@ export class GpsMapStack extends Stack {
     const parameters = `#set($segmentText = $input.params().querystring.get('segment'))
   #set($segmentsText = $input.params().querystring.get('segments'))
 #set($valid = false)
-#if($segmentText.matches('^(0|[1-9][0-9]{0,6})$') && $segmentsText.matches('^[1-9][0-9]{0,6}$'))
-  #set($segment = $util.parseJson($segmentText))
-  #set($segments = $util.parseJson($segmentsText))
-  #if($segments <= 1048576 && $segment < $segments)
-    #set($valid = true)
-  #end
+#set($segment = $util.parseJson($segmentText))
+#set($segments = $util.parseJson($segmentsText))
+#if($segment >= 0 && $segments >= 1 && $segments <= 1048576 && $segment < $segments)
+  #set($valid = true)
 #end`;
     const corsHeaders = {
       'method.response.header.Access-Control-Allow-Origin': `'${siteOrigin}'`,
