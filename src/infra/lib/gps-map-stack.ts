@@ -194,7 +194,7 @@ export class GpsMapStack extends Stack {
       api.addGatewayResponse(name, {
         type,
         responseHeaders: { 'Access-Control-Allow-Origin': `'${siteOrigin}'`, 'Cache-Control': "'no-store'", Vary: "'Origin'" },
-        templates: { 'application/json': '{"message":"API request failed"}' },
+        templates: { 'application/json': '{"message":$context.error.messageString}' },
       });
     }
     new deployment.BucketDeployment(this, 'DeployWebsite', {

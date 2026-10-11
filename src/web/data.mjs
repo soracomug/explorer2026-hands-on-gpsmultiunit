@@ -45,7 +45,16 @@ export async function readAllPrefectures({ fetchImpl = fetch, signal, endpoint =
           if (response.status !== 429 || attempt === 3) break;
           await new Promise((resolve) => setTimeout(resolve, retryDelayMs * (attempt + 1)));
         }
-        if (!response.ok) throw new Error(`APIの取得に失敗しました (${response.status})`);
+        if (!response.ok) {
+          const body = await response.text();
+          let detail = body;
+          try {
+            detail = JSON.parse(body).message ?? body;
+          } catch {
+            // Keep the raw response body when the API does not return JSON.
+          }
+          throw new Error(`APIの取得に失敗しました (${response.status})${detail ? `: ${String(detail).slice(0, 300)}` : ''}`);
+        }
         const result = await response.json();
         if (!Array.isArray(result.items) || typeof result.splitRequired !== 'boolean') throw new Error('APIの応答形式が不正です');
         splitRequired ||= result.splitRequired;
