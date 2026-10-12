@@ -50,13 +50,26 @@ export class GpsMapStack extends Stack {
     beamSecret.grantRead(ingest);
     hashSecret.grantRead(ingest);
 
+    const apiAccessLogs = new logs.LogGroup(this, 'ApiAccessLogs', {
+      retention: logs.RetentionDays.ONE_MONTH,
+      removalPolicy: RemovalPolicy.RETAIN,
+    });
     const api = new apigateway.RestApi(this, 'Api', {
       endpointTypes: [apigateway.EndpointType.REGIONAL],
       deployOptions: {
         stageName: 'prod', throttlingRateLimit: 10, throttlingBurstLimit: 20,
-        loggingLevel: apigateway.MethodLoggingLevel.OFF, dataTraceEnabled: false,
+        loggingLevel: apigateway.MethodLoggingLevel.INFO, dataTraceEnabled: false,
+        accessLogDestination: new apigateway.LogGroupLogDestination(apiAccessLogs),
+        accessLogFormat: apigateway.AccessLogFormat.custom(JSON.stringify({
+          requestId: apigateway.AccessLogField.contextRequestId(),
+          extendedRequestId: apigateway.AccessLogField.contextExtendedRequestId(),
+          resourcePath: apigateway.AccessLogField.contextResourcePath(),
+          status: apigateway.AccessLogField.contextStatus(),
+          integrationStatus: apigateway.AccessLogField.contextIntegrationStatus(),
+          integrationError: apigateway.AccessLogField.contextIntegrationErrorMessage(),
+        })),
       },
-      cloudWatchRole: false,
+      cloudWatchRole: true,
     });
     const bucket = new s3.Bucket(this, 'Website', {
       blockPublicAccess: s3.BlockPublicAccess.BLOCK_ALL,
