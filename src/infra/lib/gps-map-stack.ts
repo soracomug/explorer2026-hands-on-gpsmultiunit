@@ -141,8 +141,8 @@ export class GpsMapStack extends Stack {
     const scanRole = new iam.Role(this, 'ApiScanRole', { assumedBy: new iam.ServicePrincipal('apigateway.amazonaws.com') });
     scanRole.addToPolicy(new iam.PolicyStatement({ actions: ['dynamodb:Scan'], resources: [table.tableArn] }));
     const readResource = api.root.addResource('api').addResource('prefectures');
-    const parameters = `#set($segment = $util.parseJson($input.params('segment')))
-  #set($segments = $util.parseJson($input.params('segments')))`;
+    const parameters = `#set($segment = $input.params('segment'))
+  #set($segments = $input.params('segments'))`;
     const corsHeaders = {
       'method.response.header.Access-Control-Allow-Origin': `'${siteOrigin}'`,
       'method.response.header.Cache-Control': "'no-store'",
