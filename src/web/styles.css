@@ -4,16 +4,11 @@
   --line: #d6e1dd;
   --accent: #24785f;
   --level-0: #fff;
-  --level-1: #fff0ed;
-  --level-2: #ffdad2;
-  --level-3: #ffc3b5;
-  --level-4: #ffa78f;
-  --level-5: #f98b72;
-  --level-6: #ec705b;
-  --level-7: #d95547;
-  --level-8: #bc3c36;
-  --level-9: #982b2b;
-  --level-10: #702021;
+  --level-1: #f5a623;
+  --level-2: #ee7838;
+  --level-3: #db4d3d;
+  --level-4: #b8323d;
+  --level-5: #74243d;
 }
 * { box-sizing: border-box; }
 body { margin: 0; color: var(--ink); background: #fafcfc; font-family: "Hiragino Kaku Gothic ProN", "Yu Gothic", "Meiryo", sans-serif; font-size: 14px; letter-spacing: 0; }
@@ -58,16 +53,12 @@ h2 { font-size: 14px; margin: 0; font-weight: 600; }
 [data-level="3"] { fill: var(--level-3); background: var(--level-3); }
 [data-level="4"] { fill: var(--level-4); background: var(--level-4); }
 [data-level="5"] { fill: var(--level-5); background: var(--level-5); }
-[data-level="6"] { fill: var(--level-6); background: var(--level-6); }
-[data-level="7"] { fill: var(--level-7); background: var(--level-7); }
-[data-level="8"] { fill: var(--level-8); background: var(--level-8); }
-[data-level="9"] { fill: var(--level-9); background: var(--level-9); }
-[data-level="10"] { fill: var(--level-10); background: var(--level-10); }
+[data-level="5"] { fill: var(--level-5); background: var(--level-5); }
 .legend { display: flex; align-items: center; gap: 10px; margin-top: 16px; font-size: 10px; }
 .zero-swatch { width: 30px; height: 22px; border: 1px solid var(--line); background: #fff; display: grid; place-items: center; }
-.scale { display: grid; grid-template-columns: repeat(10, minmax(0, 1fr)); width: min(100%, 400px); }
+.scale { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); width: min(100%, 400px); }
 .scale span { height: 22px; display: grid; place-items: center; min-width: 0; }
-.scale span:nth-child(n+7) { color: #fff; }
+.scale span:nth-child(n+4) { color: #fff; }
 .legend-unit { color: var(--muted); }
 .list-section { border-left: 1px solid var(--line); padding-left: 24px; }
 .list-scroll { height: 598px; overflow-y: auto; scrollbar-width: thin; }

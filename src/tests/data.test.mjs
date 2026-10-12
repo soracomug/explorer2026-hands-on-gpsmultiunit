@@ -17,13 +17,13 @@ test('maps all 47 licensed prefecture shapes to JIS prefecture codes', () => {
   assert.equal(prefectures[46].id, 'okinawa');
 });
 
-test('counts duplicate prefectures and caps colors at ten levels', () => {
+test('counts duplicate prefectures and caps colors at five levels', () => {
   const counts = countPrefectures([...Array(12).fill({ prefecture: 13 }), { prefecture: 1 }, { prefecture: 47 }, { prefecture: 47 }]);
   assert.equal(counts[13], 12);
   assert.equal(counts[1], 1);
   assert.equal(counts[47], 2);
   assert.equal(counts[27], 0);
-  for (let count = 0; count <= 12; count++) assert.equal(colorLevel(count), Math.min(10, count));
+  for (let count = 0; count <= 12; count++) assert.equal(colorLevel(count), Math.min(5, count));
   assert.deepEqual(countPrefectures([]), Array(48).fill(0));
   for (const prefecture of [0, 48, 1.5, '13', null]) assert.throws(() => countPrefectures([{ prefecture }]));
 });

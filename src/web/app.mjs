@@ -65,10 +65,10 @@ for (const prefecture of prefectures) {
 byId('map').append(map);
 byId('map').setAttribute('aria-busy', 'false');
 byId('refresh-icon').append(createElement(RefreshCw, { width: '18', height: '18', 'aria-hidden': 'true' }));
-for (let level = 1; level <= 10; level++) {
+for (let level = 1; level <= 5; level++) {
   const swatch = document.createElement('span');
   swatch.dataset.level = String(level);
-  swatch.textContent = level === 10 ? '10+' : String(level);
+  swatch.textContent = level === 5 ? '5+' : String(level);
   byId('scale').append(swatch);
 }
 

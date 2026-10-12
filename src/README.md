@@ -27,7 +27,7 @@ Lambda、API Gateway、DynamoDB、S3、Secrets Manager、WAFは `ap-northeast-1`
 | [infra/lib/gps-map-stack.ts](infra/lib/gps-map-stack.ts) | AWSリソース・アクセス権・DynamoDB直接統合・CORS |
 | [lambda/ingest.mjs](lambda/ingest.mjs) | Beamデータの検証・都道府県判定・保存 |
 | [web/index.html](web/index.html) | 静的画面 |
-| [web/app.mjs](web/app.mjs) | 白地図・10段階の配色・自動更新 |
+| [web/app.mjs](web/app.mjs) | 白地図・5段階の配色・自動更新 |
 | [web/data.mjs](web/data.mjs) | JISコード対応・全件取得・件数集計 |
 | [tests/ingest.test.mjs](tests/ingest.test.mjs) | Lambdaの回帰テスト |
 | [tests/data.test.mjs](tests/data.test.mjs) | 地図・集計・分割Scanのテスト |
@@ -128,12 +128,12 @@ DynamoDBのScanは1リクエスト最大1MBです。通常のページングで�
 
 API Gatewayの429レート制限は、1・2・3秒の待機で最大3回再試行します。同じ分割を再取得し、成功した応答だけを追加するため、再試行による二重計上はありません。それ以外のエラーや、再試行後も続く429は画面に表示します。
 
-地図は0台が白、1～9台は各段階、10台以上は最も濃い色の合計10段階です。30秒ごとに再取得し、15秒・60秒への変更、自動更新停止、手動更新にも対応します。タブ非表示中は定期取得を停止します。取得エラー時は前回表示を維持し、未取得状態を0台と扱いません。
+地図は0台が白、1～4台は各段階、5台以上は最も濃い色の合計5段階です。1台目から視認しやすい色で表示します。30秒ごとに再取得し、15秒・60秒への変更、自動更新停止、手動更新にも対応します。タブ非表示中は定期取得を停止します。取得エラー時は前回表示を維持し、未取得状態を0台と扱いません。
 
 ## セキュリティとSTSの判断
 
 - S3はBlock Public AccessとCloudFront OACを使用し、S3ウェブサイト公開はしません。
-- CloudFrontからAPI Gatewayへ秘密ヘッダーを付け、Regional WAFで一致するリクエストのみ許可します。API Gateway標準URLへの直接アクセスは拒否されます。WAFのサンプルリクエスト記録、API Gatewayのボディ／ヘッダーデバッグログは無効です。
+- CloudFrontからAPI Gatewayへ秘密ヘッダーを付け、Regional WAFで一致するリクエストのみ許可します。API Gateway標準URLへの直接アクセスは拒否されます。WAFのサンプルリクエスト記録とAPI Gatewayの詳細な実行ログは無効です。簡易アクセスログにはリクエストID・ステータス・統合エラーを記録します。
 - APIとBeamのCloudFront経路はHTTPSのみ、キャッシュは無効です。Authorization、Origin、クエリーを転送し、HostはAPIのものへ置き換えます。
 - CORSの許可元は自分のCloudFront originだけです。OPTIONSはGETとContent-Typeを許可します。CSPの `connect-src 'self'` でも同一オリジンへの接続に限定します。
 - **CORSは認証ではありません。** 他サイトのブラウザーによる応答読取りは防ぎますが、curl等によるCloudFront経由の公開APIアクセスは防ぎません。サイトと都道府県番号の一覧は匿名公開する前提です。WAFの秘密ヘッダーも閲覧者の認証にはなりません。

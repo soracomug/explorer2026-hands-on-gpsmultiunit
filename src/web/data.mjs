@@ -25,7 +25,7 @@ export function countPrefectures(items) {
 }
 
 export function colorLevel(count) {
-  return Math.min(10, Math.max(0, count));
+  return Math.min(5, Math.max(0, count));
 }
 
 export async function readAllPrefectures({ fetchImpl = fetch, signal, endpoint = '/api/prefectures', maxSegments = 1048576, retryDelayMs = 1000 } = {}) {

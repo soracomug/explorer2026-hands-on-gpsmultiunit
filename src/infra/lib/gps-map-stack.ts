@@ -58,7 +58,7 @@ export class GpsMapStack extends Stack {
       endpointTypes: [apigateway.EndpointType.REGIONAL],
       deployOptions: {
         stageName: 'prod', throttlingRateLimit: 10, throttlingBurstLimit: 20,
-        loggingLevel: apigateway.MethodLoggingLevel.INFO, dataTraceEnabled: false,
+        loggingLevel: apigateway.MethodLoggingLevel.OFF, dataTraceEnabled: false,
         accessLogDestination: new apigateway.LogGroupLogDestination(apiAccessLogs),
         accessLogFormat: apigateway.AccessLogFormat.custom(JSON.stringify({
           requestId: apigateway.AccessLogField.contextRequestId(),
