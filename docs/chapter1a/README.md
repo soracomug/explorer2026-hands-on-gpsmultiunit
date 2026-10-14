@@ -60,22 +60,30 @@ iOSまたはAndroidのスマートフォンにインストールしたGPSトラ�
 
 以下のリンクから、GPSトラッカーシミュレータアプリをインストールしてください。
 
-[GPSトラッカーシミュレータアプリ インストールリンク](https://example.com)
+- [Android版](https://play.google.com/store/apps/details?id=org.sokohiki.kimura.app.soracom.gpsmultiunit)
+- [iOS版](https://apps.apple.com/jp/app/gps%E3%83%88%E3%83%A9%E3%83%83%E3%82%AB%E3%83%BC%E3%82%B7%E3%83%9F%E3%83%A5%E3%83%AC%E3%83%BC%E3%82%BF%E3%83%BC/id6807686222)
+
+App StoreおよびGoogle Playから「GPSトラッカーシミュレーター」で検索してインストールすることも可能です。
 
 ### 仮想SIM情報を設定する
 
 インストールしたアプリの歯車ボタンを押し、設定画面に入ります。
 
-(設定画面の画像)
+![iOSの画面](img/image2.png)
 
-「SORACOM Arc設定」の「WireGuard設定」に、先ほど保存した仮想SIMのWireGuard接続情報を入力してください。
+![Androidの画面](img/image2-android.png)
+
+「SORACOM Arc設定」の「WireGuard設定」に、先ほど保存した仮想SIMのWireGuard接続情報を入力してください。入力後、Android版は「ARC設定を保存」ボタンを押します。  
+また、「自動送信」をONにします。
+
+![iOSの画面](img/image3.png)
+
+![Androidの画面](img/image3-android.png)
 
 ### 位置情報の送信を設定する
 
-GPSトラッカーシミュレーターはデフォルトではスマートフォンの位置情報を使用します。スマートフォンの位置情報を利用できない、または送信したくない場合は設定画面の「固定位置情報送信」をONにしてください。  
+GPSトラッカーシミュレーターはデフォルトではスマートフォンの位置情報を使用します。スマートフォンの位置情報を利用できないi、または送信したくない場合は設定画面の「固定位置情報送信」をONにしてください。  
 これをONにすることで、デバイスの位置ではなく、固定で設定した位置情報(東京駅の位置)が送信されるようになります。
-
-(設定画面)
 
 「完了」ボタン(iOS)または「デバイス」ボタン(Android)を押して終了です。
 

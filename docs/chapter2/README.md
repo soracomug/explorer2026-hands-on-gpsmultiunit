@@ -35,7 +35,6 @@
 
 スマホアプリを利用されている場合は、設定画面で「自動送信」をONにしてください。
 
-(アプリの画面)
 
 7. 画面下部の”保存”ボタンをクリックします。
 
@@ -84,6 +83,6 @@ Harvest 上のデータを以下の手順で確認します。
 ![HarvestData(地図)](img/image17.png)
 
 ---
-- 次: [3: SORACOM Funnel設定](../chapter3/README.md)
+- 次: [3: SORACOM Lagoon設定](../chapter3/README.md)
 
 - 前: [1: GPSマルチユニット初期設定(SIM登録～SIM取り付け)](../chapter1/README.md)
