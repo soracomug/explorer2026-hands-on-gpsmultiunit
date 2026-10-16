@@ -69,14 +69,22 @@ App StoreおよびGoogle Playから「GPSトラッカーシミュレーター」
 
 インストールしたアプリの歯車ボタンを押し、設定画面に入ります。
 
+**iOSの場合**
+
 ![iOSの画面](img/image2.png)
+
+**Androidの場合**
 
 ![Androidの画面](img/image2-android.png)
 
 「SORACOM Arc設定」の「WireGuard設定」に、先ほど保存した仮想SIMのWireGuard接続情報を入力してください。入力後、Android版は「ARC設定を保存」ボタンを押します。  
 また、「自動送信」をONにします。
 
+**iOSの場合**
+
 ![iOSの画面](img/image3.png)
+
+**Androidの場合**
 
 ![Androidの画面](img/image3-android.png)
 
