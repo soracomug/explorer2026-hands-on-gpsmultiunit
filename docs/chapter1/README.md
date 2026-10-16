@@ -14,7 +14,7 @@
 ## 構成図
 
 ![構成図](img/architecture.png)
-
+![alt text](image.png)
 ## ユーザーコンソールへのログイン手順
 
 SORACOMユーザーコンソールへのログイン手順を解説します。
@@ -86,7 +86,6 @@ GPS マルチユニットに挿入した SIM の IMSI (クレジットカード�
 ## これ以降のドキュメント
 
 - [ガジェット設定〜Harvest動作確認](../chapter2/README.md)
-- [SORACOM Funnel設定](../chapter3/README.md)
-- [IoT Core設定～Location Service設定～動作確認](../chapter4/README.md)
-- [中・上級者向け追加コンテンツ](../chapter5/README.md)
+- [SORACOM Lagoon設定](../chapter3/README.md)
+- [中・上級者向け追加コンテンツ](../chapter4/README.md)
 - [後片付け](../chapter99/README.md)

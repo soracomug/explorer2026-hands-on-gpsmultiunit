@@ -67,4 +67,4 @@ SORACOM ユーザーコンソールのルートユーザーのメールアドレ
 - 次: [4: 中・上級者向け追加コンテンツ](../chapter4/README.md)  
 99: [後片付け](../chapter99/README.md)
 
-- 前: [2: GPSマルチユニット初期設定(ガジェット設定〜Harvest動作確認)](../chapter2/README.md)
+- 前: [2: ガジェット設定〜Harvest動作確認](../chapter2/README.md)
