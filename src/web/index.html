@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#fafcfc">
+  <title>GPSマルチユニット | 全国の現在地</title>
+  <link rel="stylesheet" href="/styles.css">
+  <script src="/app.js" defer></script>
+</head>
+<body>
+  <header class="page-header">
+    <div class="identity"><span class="brand-mark" aria-hidden="true">GPS</span><div><h1>GPSマルチユニット</h1><p>全国の現在地</p></div></div>
+    <div class="controls">
+      <label class="auto-control"><input id="auto-refresh" type="checkbox" checked>自動更新</label>
+      <select id="interval" aria-label="自動更新間隔"><option value="15000">15秒</option><option value="30000" selected>30秒</option><option value="60000">60秒</option></select>
+      <button id="refresh" class="icon-button" type="button" aria-label="最新データに更新" title="最新データに更新"><span id="refresh-icon"></span></button>
+    </div>
+  </header>
+  <main>
+    <section class="summary" aria-label="集計情報">
+      <div><span class="metric-label">登録ユニット</span><strong id="total">--</strong><span class="unit">台</span></div>
+      <div><span class="metric-label">観測都道府県</span><strong id="active">--</strong><span class="unit">/ 47</span></div>
+      <div class="update-summary"><span class="metric-label">最終更新</span><time id="updated">未取得</time><span id="status" role="status">接続中</span></div>
+    </section>
+    <p id="error" class="error" role="alert" hidden></p>
+    <div class="workspace">
+      <section class="map-section" aria-labelledby="map-title">
+        <div class="section-heading"><h2 id="map-title">都道府県マップ</h2><span id="selection" aria-live="polite">全国</span></div>
+        <div id="map" class="map-surface" aria-busy="true"></div>
+        <div class="legend" aria-label="色の濃さと登録ユニット数"><span class="zero-swatch">0</span><div id="scale" class="scale"></div><span class="legend-unit">台</span></div>
+      </section>
+      <section class="list-section" aria-labelledby="list-title">
+        <div class="section-heading"><h2 id="list-title">都道府県別</h2><span>台数</span></div>
+        <div class="list-scroll"><table><thead><tr><th scope="col">都道府県</th><th scope="col">ユニット</th></tr></thead><tbody id="prefecture-list"></tbody></table></div>
+      </section>
+    </div>
+  </main>
+  <footer>
+    <span>SORACOM Edition</span>
+    <span>地図: <a href="https://mapsvg.com/maps/japan" target="_blank" rel="noopener noreferrer">MapSVG</a> / <a href="https://github.com/VictorCazanave/svg-maps/tree/master/packages/japan" target="_blank" rel="noopener noreferrer">svg-maps</a> · <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener noreferrer">CC BY 4.0</a>（配色・ラベルを変更）</span>
+    <span>位置判定: <a href="https://www.gsi.go.jp/" target="_blank" rel="noopener noreferrer">国土地理院</a></span>
+  </footer>
+</body>
+</html>
